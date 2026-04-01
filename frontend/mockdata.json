@@ -1,0 +1,279 @@
+{
+"overview": {
+  "best_candidate": {
+    "name": "Karan Mehta",
+    "score": 92,
+    "tag": "Top Match"
+  },
+  "stats": {
+    "average_score": 68,
+    "total_candidates": 5
+  },
+  "distribution": {
+    "high": 2,
+    "medium": 2,
+    "low": 1
+  },
+  "jd_insights": {
+    "skills": ["React", "Node", "MongoDB"],
+    "experience": "2+ years"
+  },
+  "common_skill_gaps": [
+    { "skill": "Docker", "count": 3 },
+    { "skill": "AWS", "count": 2 },
+    { "skill": "System Design", "count": 2 }
+  ],
+  "recommendation": "Strong candidates are available, but most lack cloud and deployment skills. Upskilling in Docker and AWS is recommended for better alignment."
+},
+  "candidates": [
+    {
+      "id": 1,
+      "name": "Karan Mehta",
+      "email": "karan.mehta.fs@gmail.com",
+      "phone": "+91-9988776655",
+      "rank": 1,
+      "embedding_data": {
+        "similarity_score": 0.91,
+        "matched_keywords": [
+          "React",
+          "Node",
+          "MongoDB",
+          "System Design"
+        ]
+      },
+      "ats_score": 92,
+      "score_breakdown": {
+        "skills": 38,
+        "experience": 28,
+        "projects": 18,
+        "education": 8
+      },
+      "charts": {
+        "pie": [
+          {
+            "name": "Skills",
+            "value": 38
+          },
+          {
+            "name": "Experience",
+            "value": 28
+          },
+          {
+            "name": "Projects",
+            "value": 18
+          },
+          {
+            "name": "Education",
+            "value": 8
+          }
+        ]
+      },
+      "llm_data": {
+        "why": "This candidate is the best match due to strong full stack experience, system design expertise, and real-world scalable applications.",
+        "skill_gap": [
+          "Kubernetes"
+        ],
+        "summary": "Top-tier developer with strong backend and architecture knowledge."
+      }
+    },
+    {
+      "id": 2,
+      "name": "Aman Verma",
+      "email": "aman.verma.dev@gmail.com",
+      "phone": "+91-9876543210",
+      "rank": 2,
+      "embedding_data": {
+        "similarity_score": 0.85,
+        "matched_keywords": [
+          "React",
+          "Node",
+          "MongoDB"
+        ]
+      },
+      "ats_score": 85,
+      "score_breakdown": {
+        "skills": 35,
+        "experience": 25,
+        "projects": 17,
+        "education": 8
+      },
+      "charts": {
+        "pie": [
+          {
+            "name": "Skills",
+            "value": 35
+          },
+          {
+            "name": "Experience",
+            "value": 25
+          },
+          {
+            "name": "Projects",
+            "value": 17
+          },
+          {
+            "name": "Education",
+            "value": 8
+          }
+        ]
+      },
+      "llm_data": {
+        "why": "Strong MERN developer with solid project experience and good understanding of full stack systems.",
+        "skill_gap": [
+          "Docker",
+          "AWS"
+        ],
+        "summary": "Good full stack candidate with room for improvement in deployment."
+      }
+    },
+    {
+      "id": 3,
+      "name": "Rahul Das",
+      "email": "rahul.das.dev@gmail.com",
+      "phone": "+91-9012345678",
+      "rank": 3,
+      "embedding_data": {
+        "similarity_score": 0.62,
+        "matched_keywords": [
+          "JavaScript"
+        ]
+      },
+      "ats_score": 60,
+      "score_breakdown": {
+        "skills": 20,
+        "experience": 10,
+        "projects": 20,
+        "education": 10
+      },
+      "charts": {
+        "pie": [
+          {
+            "name": "Skills",
+            "value": 20
+          },
+          {
+            "name": "Experience",
+            "value": 10
+          },
+          {
+            "name": "Projects",
+            "value": 20
+          },
+          {
+            "name": "Education",
+            "value": 10
+          }
+        ]
+      },
+      "llm_data": {
+        "why": "Fresher with basic knowledge and limited real-world exposure.",
+        "skill_gap": [
+          "React",
+          "Node",
+          "MongoDB",
+          "Docker"
+        ],
+        "summary": "Entry-level candidate with learning potential."
+      }
+    },
+    {
+      "id": 4,
+      "name": "Priya Kapoor",
+      "email": "priya.kapoor.data@gmail.com",
+      "phone": "+91-9090909090",
+      "rank": 4,
+      "embedding_data": {
+        "similarity_score": 0.58,
+        "matched_keywords": [
+          "Python",
+          "SQL"
+        ]
+      },
+      "ats_score": 55,
+      "score_breakdown": {
+        "skills": 22,
+        "experience": 18,
+        "projects": 10,
+        "education": 5
+      },
+      "charts": {
+        "pie": [
+          {
+            "name": "Skills",
+            "value": 22
+          },
+          {
+            "name": "Experience",
+            "value": 18
+          },
+          {
+            "name": "Projects",
+            "value": 10
+          },
+          {
+            "name": "Education",
+            "value": 5
+          }
+        ]
+      },
+      "llm_data": {
+        "why": "Strong data analyst but not aligned with software development role.",
+        "skill_gap": [
+          "React",
+          "Node",
+          "System Design"
+        ],
+        "summary": "Good analyst but mismatched domain."
+      }
+    },
+    {
+      "id": 5,
+      "name": "Neha Singh",
+      "email": "neha.singh.ml@gmail.com",
+      "phone": "+91-9123456780",
+      "rank": 5,
+      "embedding_data": {
+        "similarity_score": 0.52,
+        "matched_keywords": [
+          "Machine Learning"
+        ]
+      },
+      "ats_score": 50,
+      "score_breakdown": {
+        "skills": 20,
+        "experience": 20,
+        "projects": 5,
+        "education": 5
+      },
+      "charts": {
+        "pie": [
+          {
+            "name": "Skills",
+            "value": 20
+          },
+          {
+            "name": "Experience",
+            "value": 20
+          },
+          {
+            "name": "Projects",
+            "value": 5
+          },
+          {
+            "name": "Education",
+            "value": 5
+          }
+        ]
+      },
+      "llm_data": {
+        "why": "Strong ML background but not suitable for this role.",
+        "skill_gap": [
+          "Frontend",
+          "Backend",
+          "System Design"
+        ],
+        "summary": "ML-focused candidate not aligned with JD."
+      }
+    }
+  ]
+}
