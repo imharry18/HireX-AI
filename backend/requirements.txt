@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+pdfplumber
+langchain
+faiss-cpu
+sentence-transformers
+google-generativeai
+python-dotenv
