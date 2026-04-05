@@ -3,7 +3,7 @@ from fastapi import APIRouter, UploadFile, File
 from typing import List
 from app.services.parser import extract_text
 from app.services.rag import add_resume, rank_resumes
-from app.services.llm import analyze_resume
+from app.services.llm import generate_full_analysis
 
 router = APIRouter()
 
@@ -13,7 +13,7 @@ async def upload_resumes(files: List[UploadFile] = File(...)):
 
     for file in files:
         text = await extract_text(file)
-        resume_id = add_resume(text)
+        resume_id = add_resume(text, file.filename)
 
         results.append({
             "filename": file.filename,
@@ -25,17 +25,13 @@ async def upload_resumes(files: List[UploadFile] = File(...)):
 
 @router.post("/rank")
 async def rank(job_description: str):
+    # Retrieve base data and embeddings/similarity match chunks
     results = rank_resumes(job_description)
+    
+    if not results:
+        return {"error": "No resumes stored to rank."}
 
-    final_results = []
+    # Use single batch architecture to overcome 10-12 request-per-minute limits
+    final_payload = generate_full_analysis(results, job_description)
 
-    for r in results:
-        analysis = analyze_resume(r["content"], job_description)
-
-        final_results.append({
-            "resume_id": r["resume_id"],
-            "score": r["score"],
-            "analysis": analysis
-        })
-
-    return {"ranking": final_results}
+    return final_payload
