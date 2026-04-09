@@ -9,7 +9,7 @@ embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 # store all resumes
 resume_store = {}
 
-def add_resume(text):
+def add_resume(text, filename="Unknown"):
     resume_id = str(uuid.uuid4())
 
     splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
@@ -19,7 +19,11 @@ def add_resume(text):
 
     vector_db = FAISS.from_texts(chunks, embedding_model, metadatas=metadatas)
 
-    resume_store[resume_id] = vector_db
+    resume_store[resume_id] = {
+        "vector_db": vector_db,
+        "full_text": text,
+        "filename": filename
+    }
 
     return resume_id
 
@@ -39,7 +43,8 @@ def calculate_score(resume_text, job_description):
 def rank_resumes(job_description):
     results = []
 
-    for resume_id, db in resume_store.items():
+    for resume_id, data in resume_store.items():
+        db = data["vector_db"]
         docs = db.similarity_search(job_description, k=3)
 
         content = " ".join([d.page_content for d in docs])
@@ -48,6 +53,8 @@ def rank_resumes(job_description):
 
         results.append({
             "resume_id": resume_id,
+            "filename": data["filename"],
+            "full_text": data["full_text"],
             "score": score,
             "content": content
         })
