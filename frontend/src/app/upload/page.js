@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import mockDataRaw from "../../../mockdata.json";
 
 export default function UploadPage() {
   const [files, setFiles] = useState([]);
@@ -10,9 +9,9 @@ export default function UploadPage() {
   const [status, setStatus] = useState("idle"); // idle, uploading, results
   const [progress, setProgress] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [mockData, setMockData] = useState(null);
   
   const fileInputRef = useRef(null);
-  const mockData = mockDataRaw;
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -31,7 +30,7 @@ export default function UploadPage() {
     }
   };
 
-  const processFiles = () => {
+  const processFiles = async () => {
     if (files.length === 0 || !jobDescription) {
       alert("Please upload resumes and enter a job description.");
       return;
@@ -40,18 +39,45 @@ export default function UploadPage() {
     setStatus("uploading");
     setProgress(0);
 
-    // Simulate realistic loading progression
-    let currentProgress = 0;
-    const interval = setInterval(() => {
-      currentProgress += Math.random() * 15;
-      if (currentProgress >= 100) {
-         setProgress(100);
-         clearInterval(interval);
-         setTimeout(() => setStatus("results"), 500); // short delay after hitting 100%
-      } else {
-         setProgress(Math.floor(currentProgress));
-      }
-    }, 300);
+    try {
+      let currentProgress = 0;
+      const interval = setInterval(() => {
+        // Smoothly and asymptotically approach 90% while waiting for API
+        currentProgress += (90 - currentProgress) * 0.08;
+        setProgress(Math.floor(currentProgress));
+      }, 300);
+
+      const formData = new FormData();
+      files.forEach(file => {
+        formData.append("files", file);
+      });
+
+      const uploadRes = await fetch("http://localhost:8000/upload-resumes", {
+        method: "POST",
+        body: formData
+      });
+      if (!uploadRes.ok) throw new Error("Document upload failed. Ensure backend is running.");
+
+      const rankRes = await fetch(`http://localhost:8000/rank?job_description=${encodeURIComponent(jobDescription)}`, {
+        method: "POST",
+      });
+      if (!rankRes.ok) throw new Error("Analysis failed. Backend might have encountered an LLM error.");
+      
+      const resultsData = await rankRes.json();
+      
+      if (resultsData.error) throw new Error(resultsData.error);
+      
+      setMockData(resultsData);
+      
+      clearInterval(interval);
+      setProgress(100);
+      setTimeout(() => setStatus("results"), 500); 
+
+    } catch (error) {
+      console.error(error);
+      alert("Error: " + error.message);
+      setStatus("idle");
+    }
   };
 
   return (
@@ -150,7 +176,10 @@ export default function UploadPage() {
             Processing Data Models
           </h2>
           <p className="text-sm text-gray-500 font-light mb-8 max-w-[280px]">
-            {progress < 40 ? "Extracting text and parsing resumes..." : progress < 70 ? "Generating semantic embeddings..." : "Ranking against job description..."}
+            {progress < 25 ? "Ingesting documents..." : 
+             progress < 50 ? "Extracting text features..." : 
+             progress < 75 ? "Generating semantic embeddings..." : 
+             "Running Gemini 2.5 AI Analysis..."}
           </p>
           
           <div className="w-full bg-[#111] border border-white/5 rounded-full h-1.5 overflow-hidden">
@@ -232,9 +261,6 @@ export default function UploadPage() {
                      </div>
                   </div>
 
-                  <div className="text-xs text-gray-400 leading-relaxed font-light border-t border-white/5 pt-4">
-                     {mockData.overview.recommendation}
-                  </div>
                </div>
 
                {/* Rankings List */}
@@ -282,6 +308,20 @@ export default function UploadPage() {
                         </div>
                         <h2 className="text-2xl font-medium text-white mb-2">Cohort Intelligence</h2>
                         <p className="text-gray-500 text-sm max-w-md mx-auto">Select a candidate from the left to view detailed profile matches, or review the batch statistics below based on your job description.</p>
+                     </div>
+
+                     <div className="max-w-3xl mx-auto w-full mb-6">
+                        {/* Executive Summary */}
+                        <div className="bg-[#111] border border-blue-500/20 rounded-3xl p-7 shadow-lg shadow-black/20 relative overflow-hidden">
+                           <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                           <h3 className="text-sm font-semibold tracking-wider text-white uppercase mb-3 flex items-center gap-2">
+                              <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                              AI Executive Summary
+                           </h3>
+                           <p className="text-sm text-gray-300 leading-relaxed font-light">
+                              {mockData.overview.recommendation}
+                           </p>
+                        </div>
                      </div>
                      
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto w-full mb-8">
