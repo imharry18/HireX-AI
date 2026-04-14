@@ -44,8 +44,8 @@ export default function Home() {
             <p className="text-gray-500 text-sm leading-relaxed font-light">Uses compact 1024-character text chunks for high precision in matching, while passing the full resume document to the LLM for a holistic evaluation.</p>
           </div>
           <div className="p-8 rounded-xl border border-white/5 bg-[#0a0a0a]/50 backdrop-blur-sm hover:bg-[#111] hover:border-white/10 transition-all duration-300 group">
-            <h3 className="text-xl font-semibold mb-3 text-white">Context-Grounded GPT-4</h3>
-            <p className="text-gray-500 text-sm leading-relaxed font-light">Engineered to prevent hallucination. Evaluates candidates strictly on provided resume content natively, ensuring recruiter-grade reliability (Temperature = 0.1).</p>
+            <h3 className="text-xl font-semibold mb-3 text-white">Gemini 2.5 Batch Processing</h3>
+            <p className="text-gray-500 text-sm leading-relaxed font-light">Engineered to operate seamlessly under rate limits. Evaluates entire cohorts centrally using Gemini 2.5 Flash with precise JSON schema mapping.</p>
           </div>
         </div>
       </section>
@@ -96,13 +96,13 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "Language", value: "Python" },
-            { label: "LLM", value: "GPT-4" },
+            { label: "Language", value: "Python / JS" },
+            { label: "LLM", value: "Gemini 2.5" },
             { label: "Embeddings", value: "all-MiniLM-L6-v2" },
             { label: "Vector DB", value: "FAISS" },
             { label: "Framework", value: "LangChain" },
-            { label: "Backend API", value: "FastAPI / Flask" },
-            { label: "UI Interface", value: "Streamlit / Next.js" },
+            { label: "Backend API", value: "FastAPI" },
+            { label: "UI Interface", value: "Next.js 15" },
             { label: "Hardware Min", value: "8GB RAM PC" }
           ].map((tech, i) => (
             <div key={i} className="flex flex-col items-center justify-center p-6 border border-white/5 rounded-xl bg-white/[0.02]">
